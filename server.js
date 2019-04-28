@@ -30,6 +30,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // connects to Mongo DB
+
 mongoose
   .connect(process.env.MONGODB_URI || "mongodb://localhost/gooberdb")
   .then(() => console.log("MongoDB successfully connected"))
