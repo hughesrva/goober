@@ -1,13 +1,94 @@
+html,
 body {
-  background-color: #cccccc;
+  background-color: #70a9a1;
   height: 100%;
 }
 
-#dog-container,
+*,
+.button {
+  font-family: "Montserrat";
+}
+
+#homeSection {
+  background: url("../public/images/animals-dogs-pets-4933.jpg") center center;
+  background-size: cover;
+}
+
+.navbar {
+  background-color: #40798c;
+}
+
+.modal {
+  background-color: #fffae8;
+}
+
+.modal-card-head,
+.modal-card-foot {
+  background-color: #70a9a1;
+}
+
+.confirmBtn {
+  background-color: #40798c;
+  color: #fffae8;
+}
+
+hr {
+  width: 95%;
+  margin: auto;
+  background-color: #cccccc;
+}
+
+.navbar-item {
+  background-color: #a58697;
+  border: solid 0.5px #0b2027;
+  color: #0b2027;
+  margin: 6px;
+}
+
+#siteTitle {
+  font-size: 60px;
+}
+
+#siteSubtitle {
+  font-size: 30px;
+}
+
+.caution-button {
+  margin: 5px;
+}
 #owner-container {
-  background-color: #ffffff;
+  background-color: #fffae8;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 15px;
   padding: 10px;
-  margin: 20px;
+  margin: 20px auto 40px;
+}
+
+.search-result-container,
+.dog-profile-container {
+  background-color: #fffae8;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  border-radius: 15px;
+  padding: 10px;
+  margin: 20px auto 20px;
+}
+
+.search-result-container:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.16), 0 10px 20px rgba(0, 0, 0, 0.23);
+  border-radius: 15px;
+  cursor: pointer;
+}
+#loginButton,
+#signUpButton {
+  background-color: #fffae8;
+}
+
+#loginButton:hover,
+#signUpButton:hover {
+  background-color: #40798c;
+  color: #fffae8;
+}
+
+.search-modal-content {
+  width: 60%;
 }

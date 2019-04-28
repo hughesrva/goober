@@ -12,6 +12,7 @@ const Dog = require("../../models/dog");
 
 // AUTHENTICATION
 //
+
 // register new user
 router.post("/api/register", (req, res) => {
   // // Form validation
@@ -31,7 +32,8 @@ router.post("/api/register", (req, res) => {
         password: req.body.password,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
-        location: req.body.location
+        location: req.body.location,
+        friend_requests: []
       });
       // Hash password before saving in database
       bcrypt.genSalt(10, (err, salt) => {
@@ -108,6 +110,7 @@ router.get("/api/logout", function(req, res) {
 
 // USER INFORMATION
 //
+
 // pull user information
 router.get("/api/user/:id", function(req, res) {
   User.findById(req.params.id)
@@ -116,16 +119,30 @@ router.get("/api/user/:id", function(req, res) {
 });
 
 // edit user information
-router.post("/api/user/update/:userid", function(req, res) {
-  User.update(
+router.put("/api/user/update/:userid", function(req, res) {
+  User.updateOne(
     { _id: req.params.userid },
     {
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      email: req.body.email,
-      location: req.body.location
+      $set: {
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        location: req.body.location
+      }
     }
-  );
+  )
+    .then(user => res.json(user))
+    .catch(err => console.log(err));
+});
+
+// add friend request to user
+router.put("/api/user/request/:userid", function(req, res) {
+  var user = req.params.userid;
+  var request = { id: req.body.id, message: req.body.message, accepted: false };
+  console.log("Recipient: " + user + " Request: " + request);
+  User.updateOne({ _id: user }, { $push: { friend_requests: request } })
+    .then(response => res.json(response))
+    .catch(err => console.log(err));
 });
 
 //
@@ -161,6 +178,24 @@ router.post("/api/dog", function(req, res) {
 // find owner's dogs
 router.get("/api/dog/:ownerid", function(req, res) {
   Dog.find({ ownerID: req.params.ownerid })
+    .then(response => res.json(response))
+    .catch(err => res.status(422).json(err));
+});
+
+// find matching dogs
+router.get("/api/search", function(req, res) {
+  Dog.find({
+    energy: { [req.query.energyOperator]: req.query.energyValue },
+    $and: [
+      { weight: { $gte: req.query.minWeight } },
+      { weight: { $lte: req.query.maxWeight } }
+    ],
+    patience: { [req.query.patienceOperator]: req.query.patienceValue },
+    dominance: { [req.query.dominanceOperator]: req.query.dominanceValue },
+    playfulness: {
+      [req.query.playfulnessOperator]: req.query.playfulnessValue
+    }
+  })
     .then(response => res.json(response))
     .catch(err => res.status(422).json(err));
 });

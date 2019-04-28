@@ -193,7 +193,7 @@ class NewDogForm extends Component {
                   </div>
                 </div>
                 <button
-                  className="button is-primary"
+                  className="button confirmBtn"
                   onClick={this.handleFormSubmit}
                 >
                   Add Dog

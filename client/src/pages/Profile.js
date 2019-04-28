@@ -19,9 +19,9 @@ class Profile extends Component {
               <div>
                 <Navbar />
                 <div className="section">
-                  <div className="container">
-                    <div className="content">
-                      <h1 className="title">Profile Page</h1>
+                  <div className="container" id="profileContainer">
+                    <div className="content has-text-centered">
+                      <h1 className="title">Your Profile</h1>
                     </div>
                   </div>
                   <Context.Consumer>

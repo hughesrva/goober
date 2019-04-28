@@ -31,12 +31,14 @@ class ProfileInfo extends Component {
 
   handleUpdateClick = event => {
     event.preventDefault();
-    Axios.post("api/user/update" + this.props.userID, {
+    let updatedUser = {
       first_name: this.state.firstName,
       last_name: this.state.lastName,
       email: this.state.email,
       location: this.state.location
-    })
+    };
+
+    Axios.put("api/user/update/" + this.props.userID, updatedUser)
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
@@ -44,12 +46,14 @@ class ProfileInfo extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="container" id="owner-container">
-          <div className="columns">
-            <div className="column is-narrow column-left">
-              <img className="image" src="https://via.placeholder.com/150" />
+        <div className="container has-text-centered" id="owner-container">
+          <div className="columns has-text-centered">
+            <div className="column has-text-centered is-one-quarter column-left">
+              <figure className="image">
+                <img src="https://via.placeholder.com/150" />
+              </figure>
             </div>
-            <div className="column column-right">
+            <div className="column is-three-quarters column-right">
               <form>
                 <div className="field">
                   <label className="label">Your First Name</label>
@@ -91,14 +95,15 @@ class ProfileInfo extends Component {
                     onChange={this.handleInputChange}
                   />
                 </div>
-                <div className="field">
-                  <button className="button" onCLick={this.handleUpdateClick}>
-                    Save Personal Information
-                  </button>
-                </div>
               </form>
             </div>
           </div>
+          <button
+            className="button confirmBtn"
+            onClick={this.handleUpdateClick}
+          >
+            Save Personal Information
+          </button>
         </div>
       </React.Fragment>
     );

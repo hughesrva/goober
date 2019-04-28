@@ -22,6 +22,17 @@ class SignUpModal extends Component {
     });
   };
 
+  handleCancelClick = () => {
+    this.setState({
+      email: "",
+      password: "",
+      confirmedPassword: "",
+      firstName: "",
+      lastName: "",
+      location: ""
+    });
+    this.props.hide();
+  };
   handleFormSubmit = event => {
     event.preventDefault();
 
@@ -86,7 +97,7 @@ class SignUpModal extends Component {
                         <div className="control">
                           <input
                             className="input"
-                            type="text"
+                            type="email"
                             placeholder="email@example.com"
                             name="email"
                             value={this.state.email}
@@ -94,7 +105,6 @@ class SignUpModal extends Component {
                           />
                         </div>
                       </div>
-
                       {/* password field */}
                       <div className="field">
                         <label className="label">Password</label>
@@ -108,7 +118,6 @@ class SignUpModal extends Component {
                           />
                         </div>
                       </div>
-
                       {/* confirm password field */}
                       <div className="field">
                         <label className="label">Confirm Password</label>
@@ -122,7 +131,6 @@ class SignUpModal extends Component {
                           />
                         </div>
                       </div>
-
                       {/* first name field */}
                       <div className="field">
                         <label className="label">First Name</label>
@@ -136,7 +144,6 @@ class SignUpModal extends Component {
                           />
                         </div>
                       </div>
-
                       {/* last name field */}
                       <div className="field">
                         <label className="label">Last Name</label>
@@ -150,7 +157,6 @@ class SignUpModal extends Component {
                           />
                         </div>
                       </div>
-
                       {/* location field */}
                       <div className="field">
                         <label className="label">Location</label>
@@ -165,15 +171,17 @@ class SignUpModal extends Component {
                         </div>
                       </div>
                       <button
-                        className="button is-primary"
+                        className="button is-danger is-large"
+                        onClick={this.handleCancelClick}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        className="button confirmBtn is-large"
                         onClick={this.handleFormSubmit}
                       >
                         Submit
                       </button>
-                      <button
-                        className="modal-close is-large"
-                        onClick={this.props.hide}
-                      />
                     </div>
                     <div className="modal-card-foot" />
                   </div>

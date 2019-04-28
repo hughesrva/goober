@@ -46,23 +46,25 @@ class DogProfileInfo extends Component {
 
   render() {
     const dogs = this.state.dogs.map(dog => (
-      <div className="container" key={dog._id}>
-        <hr />
-        <div className="columns">
-          <div className="column is-narrow ">
+      <div
+        className="container has-text-centered dog-profile-container"
+        key={dog._id}
+      >
+        <div className="columns has-text-centered is-vcentered">
+          <div className="column is-narrow is-vcentered">
             <img className="image" src="https://via.placeholder.com/150" />
 
             <button
               onClick={() => this.handleDeleteClick(dog._id)}
-              className="button"
+              className="button caution-button"
             >
               Delete
             </button>
           </div>
           {/* left column */}
-          <div className="column">
-            <div className="content">
-              <p>{dog.name}</p>
+          <div className="column is-vcentered">
+            <div className="content is-vcentered">
+              <h3 className="subtitle">{dog.name}</h3>
               <p>
                 {dog.name}'s gender: {dog.gender}
               </p>
@@ -72,7 +74,7 @@ class DogProfileInfo extends Component {
             </div>
           </div>
           {/* right column */}
-          <div className="column">
+          <div className="column is-vcentered">
             <div className="content">
               <p>
                 {dog.name}'s energy level: {dog.energy}
@@ -94,10 +96,13 @@ class DogProfileInfo extends Component {
 
     return (
       <React.Fragment>
-        <div className="container" id="dog-container">
+        <div className="container has-text-centered" id="dog-container">
           {this.state.dogs.length !== 0 ? (
-            <div>
-              <button className="button" onClick={this.showNewDogForm}>
+            <div className="container">
+              <button
+                className="button is-large confirmBtn"
+                onClick={this.showNewDogForm}
+              >
                 Add a Dog
               </button>
               <Context.Consumer>
@@ -114,14 +119,17 @@ class DogProfileInfo extends Component {
             </div>
           ) : (
             <div>
-              <div className="content">
-                <h1>
-                  You haven't added any dogs yet! Click the button to add one.
-                </h1>
+              <div className="content has-text-centered">
+                <br />
+                <h3 className="subtitle">You haven't added any dogs yet!</h3>
+                <h3 className="subtitle">Click the button to add one.</h3>
+                <button
+                  className="button is-large confirmBtn"
+                  onClick={this.showNewDogForm}
+                >
+                  Add a Dog
+                </button>
               </div>
-              <button className="button" onClick={this.showNewDogForm}>
-                Add a Dog
-              </button>
 
               <Context.Consumer>
                 {({ userID }) => (

@@ -27,6 +27,7 @@ const UserSchema = new Schema({
       type: String
     }
   ],
+  friend_requests: [],
   join_date: {
     type: Date,
     default: Date.now

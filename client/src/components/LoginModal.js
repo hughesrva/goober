@@ -17,6 +17,14 @@ class LoginModal extends Component {
     });
   };
 
+  handleCancelClick = () => {
+    this.setState({
+      email: "",
+      password: ""
+    });
+    this.props.hide();
+  };
+
   handleFormSubmit = event => {
     event.preventDefault();
     Axios.post("api/login", {
@@ -63,7 +71,7 @@ class LoginModal extends Component {
                           <div className="control">
                             <input
                               className="input"
-                              type="text"
+                              type="emails"
                               placeholder="email@example.com"
                               name="email"
                               value={this.state.email}
@@ -84,12 +92,17 @@ class LoginModal extends Component {
                           </div>
                         </div>
                         <button
-                          className="button is-primary"
+                          className="button is-danger is-large"
+                          onClick={this.handleCancelClick}
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          className="button confirmBtn is-large"
                           onClick={this.handleFormSubmit}
                         >
                           Log In
                         </button>
-
                       </div>
                       <div className="modal-card-foot" />
                     </div>

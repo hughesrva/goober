@@ -28,31 +28,53 @@ class Home extends Component {
       <div>
         <Context.Consumer>
           {({ setUserInfo }) => (
-            <div className="section">
-              <div className="container">
-                <div className="content">
-                  <h1 className="title">Goober</h1>
-                  <h3 className="subtitle">
-                    Helping you find man's best friend's best friend.
-                  </h3>
+            <div className="section" id="homeSection">
+              <section className="hero is-large has-bg-img">
+                <div className="hero-body ">
+                  <div className="container has-text-centered">
+                    <h1 className="title" id="siteTitle">
+                      Goober
+                    </h1>
+                    <h2 className="subtitle" id="siteSubtitle">
+                      Helping you find man's best friend's second best friend.
+                    </h2>
+
+                    <div className="columns">
+                      <div className="column is-one-quarter" />
+                      <div className="column is-one-quarter">
+                        <button
+                          className="button is-large"
+                          id="loginButton"
+                          onClick={this.showLogin}
+                        >
+                          Login
+                        </button>
+                      </div>
+                      <div className="column is-one-quarter">
+                        <button
+                          className="button is-large"
+                          id="signUpButton"
+                          onClick={this.showSignUp}
+                        >
+                          Sign Up
+                        </button>
+                      </div>
+                      <div className="column is-one-quarter" />
+                    </div>
+
+                    <LoginModal
+                      show={this.state.loginShow}
+                      hide={this.hideModal}
+                      setUserInfo={setUserInfo}
+                    />
+                    <SignUpModal
+                      show={this.state.signUpShow}
+                      hide={this.hideModal}
+                      setUserInfo={setUserInfo}
+                    />
+                  </div>
                 </div>
-                <LoginModal
-                  show={this.state.loginShow}
-                  hide={this.hideModal}
-                  setUserInfo={setUserInfo}
-                />
-                <SignUpModal
-                  show={this.state.signUpShow}
-                  hide={this.hideModal}
-                  setUserInfo={setUserInfo}
-                />
-                <button className="button" onClick={this.showLogin}>
-                  Login
-                </button>
-                <button className="button" onClick={this.showSignUp}>
-                  Sign Up
-                </button>
-              </div>
+              </section>
             </div>
           )}
         </Context.Consumer>
