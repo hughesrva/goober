@@ -9,8 +9,7 @@ class SendRequest extends Component {
   pushRequest = () => {
     var request = {
       id: this.props.userID,
-      message: this.state.message,
-      accepted: false
+      message: this.state.message
     };
     Axios.put("/api/user/request/" + this.props.friendID, request)
       .then(res => console.log(res))

@@ -16,7 +16,9 @@ class App extends Component {
       token: null,
       isUser: false,
       userID: "",
-      setUserInfo: this.setUserInfo
+      setUserInfo: this.setUserInfo,
+      setName: this.setName,
+      name: ""
     };
   }
 
@@ -26,6 +28,12 @@ class App extends Component {
       token: token,
       isUser: true,
       userID: userID
+    });
+  };
+
+  setName = name => {
+    this.setState({
+      name: name
     });
   };
 

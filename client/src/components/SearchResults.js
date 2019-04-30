@@ -149,7 +149,7 @@ class SearchResults extends Component {
           <div>
             {this.state.noAction === true ? (
               <h3 className="subtitle">
-                Click the button to search for your dog's next best friend!
+                Click the button to search your dog's next best friend!
               </h3>
             ) : (
               <div className="container">

@@ -25,7 +25,9 @@ class Profile extends Component {
                     </div>
                   </div>
                   <Context.Consumer>
-                    {({ userID }) => <ProfileInfo userID={userID} />}
+                    {({ userID, setName }) => (
+                      <ProfileInfo userID={userID} setName={setName} />
+                    )}
                   </Context.Consumer>
                   <Context.Consumer>
                     {({ userID }) => <DogProfileInfo userID={userID} />}

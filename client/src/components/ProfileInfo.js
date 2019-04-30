@@ -6,7 +6,8 @@ class ProfileInfo extends Component {
     firstName: "",
     lastName: "",
     email: "",
-    location: ""
+    location: "",
+    image: ""
   };
 
   componentDidMount = () => {
@@ -18,6 +19,8 @@ class ProfileInfo extends Component {
           email: res.data.email,
           location: res.data.location
         });
+        var fullName = res.data.first_name + " " + res.data.last_name;
+        this.props.setName(fullName);
       });
     }
   };
@@ -50,7 +53,13 @@ class ProfileInfo extends Component {
           <div className="columns has-text-centered">
             <div className="column has-text-centered is-one-quarter column-left">
               <figure className="image">
-                <img src="https://via.placeholder.com/150" />
+                <img
+                  src={
+                    this.state.image !== ""
+                      ? this.state.image
+                      : "https://via.placeholder.com/150"
+                  }
+                />
               </figure>
             </div>
             <div className="column is-three-quarters column-right">

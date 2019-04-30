@@ -9,6 +9,7 @@ const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/user");
 const Dog = require("../../models/dog");
+const Chat = require("../../models/chat");
 
 // AUTHENTICATION
 //
@@ -138,9 +139,41 @@ router.put("/api/user/update/:userid", function(req, res) {
 // add friend request to user
 router.put("/api/user/request/:userid", function(req, res) {
   var user = req.params.userid;
-  var request = { id: req.body.id, message: req.body.message, accepted: false };
+  var request = { id: req.body.id, message: req.body.message };
   console.log("Recipient: " + user + " Request: " + request);
   User.updateOne({ _id: user }, { $push: { friend_requests: request } })
+    .then(response => res.json(response))
+    .catch(err => console.log(err));
+});
+
+// reject friend request (remove request from user)
+router.put("/api/user/reject", function(req, res) {
+  User.updateOne(
+    { _id: req.body.userID },
+    {
+      $pull: { friend_requests: { id: req.body.requestID } }
+    }
+  )
+    .then(response => res.json(response))
+    .catch(err => console.log(err));
+});
+
+// accept friend request (remove request from user and add users to friends lists)
+router.put("/api/user/accept", function(req, res) {
+  User.findOneAndUpdate(
+    { _id: req.body.userID },
+    {
+      $pull: { friend_requests: { id: req.body.friendID } },
+      $push: { friends: { id: req.body.friendID } }
+    }
+  )
+    .then(response => res.json(response))
+    .catch(err => console.log(err));
+
+  User.update(
+    { _id: req.body.friendID },
+    { $push: { friends: { id: req.body.userID } } }
+  )
     .then(response => res.json(response))
     .catch(err => console.log(err));
 });
@@ -209,5 +242,67 @@ router.delete("/api/dog/:dogid", function(req, res) {
 
 //
 // END DOG INFORMATION
+
+// CHAT INFORMATION
+//
+
+// start a new chat
+router.post("/api/chat/new", function(req, res) {
+  Chat.findOne(
+    {
+      $and: [
+        {
+          $or: [{ userOne: req.body.userOne }, { userOne: req.body.userTwo }]
+        },
+        {
+          $or: [{ userTwo: req.body.userOne }, { userTwo: req.body.userTwo }]
+        }
+      ]
+    },
+    function(err, result) {
+      if (err) {
+        console.log(err);
+      }
+      if (!result) {
+        const newChat = new Chat({
+          userOne: req.body.userOne,
+          userTwo: req.body.userTwo
+        });
+        newChat.save();
+      }
+    }
+  )
+    .then(results => res.json(results))
+    .catch(err => console.log(err));
+});
+
+// send new chat message
+router.post("/api/chat/send", function(req, res) {
+  Chat.findOneAndUpdate(
+    {
+      $and: [
+        {
+          $or: [{ userOne: req.body.userOne }, { userOne: req.body.userTwo }]
+        },
+        {
+          $or: [{ userTwo: req.body.userOne }, { userTwo: req.body.userTwo }]
+        }
+      ]
+    },
+    {
+      $push: {
+        messages: {
+          message: req.body.message,
+          sender: req.body.userName
+        }
+      }
+    }
+  )
+    .then(results => res.json(results))
+    .catch(err => console.log(err));
+});
+
+//
+// END OF CHAT INFORMATION
 
 module.exports = router;

@@ -6,16 +6,6 @@ import FriendsList from "../components/FriendsList";
 import Chat from "../components/Chat";
 
 class Social extends Component {
-  state = {
-    selectedFriend: ""
-  };
-
-  setSelectedFriend = friend => {
-    this.setState({
-      selectedFriend: friend
-    });
-  };
-
   render() {
     return (
       <div>
@@ -41,9 +31,6 @@ class Social extends Component {
                         userID={userID}
                       />
                     )}
-                  </Context.Consumer>
-                  <Context.Consumer>
-                    {({ userID }) => <Chat userID={userID} />}
                   </Context.Consumer>
                 </div>
               </div>
