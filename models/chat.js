@@ -16,6 +16,10 @@ var chatSchema = new Schema({
     },
     sender: {
       type: String
+    },
+    timestamp: {
+      type: Date,
+      default: Date.now
     }
   }
 });

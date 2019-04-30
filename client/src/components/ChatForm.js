@@ -25,6 +25,7 @@ class ChatForm extends Component {
     this.setState({
       message: []
     });
+    this.props.update();
   };
 
   render() {

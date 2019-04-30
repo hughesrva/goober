@@ -7,42 +7,50 @@ class Chat extends Component {
   constructor() {
     super();
     this.state = {
-      messages: []
+      messages: [],
+      userOne: "",
+      userTwo: ""
     };
   }
 
-  componentDidUpdate = () => {
-    this.startChat();
-  };
+  componentDidUpdate = async prevProps => {
+    if (this.props !== prevProps) {
+      if (this.state.userOne === "" || this.state.userTwo === "") {
+        await this.setState({
+          userOne: this.props.userID,
+          userTwo: this.props.friendID
+        });
+        console.log("Friend: " + this.props.friendID);
+        var request = {
+          userOne: this.state.userOne,
+          userTwo: this.state.userTwo
+        };
 
-  startChat = async () => {
-    console.log("Friend: " + this.props.friendID);
-    var request = {
-      userOne: this.props.userID,
-      userTwo: this.props.friendID
-    };
+        if (request.userOne !== "" && request.userTwo !== "") {
+          const newMessages = [];
 
-    if (request.userOne !== "" && request.userTwo !== "") {
-      await Axios.post("/api/chat/new", request).then(res => {
-        console.log("New chat response ", res);
-        if (res.data.messages) {
-          for (let message of res.data.messages) {
-            var cleanMessage = {
-              message: message.message,
-              sender: message.sender
-            };
-            this.updateArray(cleanMessage);
-          }
+          await Axios.post("/api/chat/new", request).then(res => {
+            console.log("New chat response ", res);
+            if (res.data.messages) {
+              for (let message of res.data.messages) {
+                var cleanMessage = {
+                  message: message.message,
+                  sender: message.sender
+                };
+                newMessages.push(cleanMessage);
+              }
+            }
+          });
+          await this.setState({
+            messages: newMessages
+          });
+          this.props.update();
         }
-      });
+      }
     }
   };
 
-  updateArray = async message => {
-    await this.setState(prevState => {
-      messages: prevState.messages.push(message);
-    });
-  };
+  componentDidMount = async () => {};
 
   render() {
     const messages = this.state.messages.map(message => (
@@ -81,6 +89,7 @@ class Chat extends Component {
                       friendID={this.props.friendID}
                       userName={this.props.userName}
                       friendName={this.props.friendName}
+                      update={this.props.update}
                     />
                   )}
                 </Context.Consumer>

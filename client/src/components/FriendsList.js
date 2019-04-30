@@ -141,6 +141,9 @@ class FriendsList extends Component {
     console.log("clicked");
   };
 
+  updateParent = () => {
+    this.forceUpdate();
+  };
   showRequestModal = (name, id) => {
     this.setState({ requestModalShow: true, friendName: name, friendID: id });
   };
@@ -246,6 +249,7 @@ class FriendsList extends Component {
               friendID={this.state.friendID}
               friendName={this.state.friendName}
               hide={this.hideChatModal}
+              update={this.updateParent}
             />
           )}
         </Context.Consumer>

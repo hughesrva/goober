@@ -293,7 +293,8 @@ router.post("/api/chat/send", function(req, res) {
       $push: {
         messages: {
           message: req.body.message,
-          sender: req.body.userName
+          sender: req.body.userName,
+          timestamp: Date.now()
         }
       }
     }
