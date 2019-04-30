@@ -91,8 +91,8 @@ class SearchResults extends Component {
                 <div className="content">
                   <h3 className="subtitle">{dog.name}</h3>
                 </div>
-                <figure className="image">
-                  <img src="https://via.placeholder.com/150" />
+                <figure className="image dogProfilePic">
+                  <img src="http://www.stickpng.com/assets/images/5845e608fb0b0755fa99d7e7.png" />
                 </figure>
               </div>
               {/* left column */}
@@ -106,26 +106,18 @@ class SearchResults extends Component {
               {/* middle column */}
               <div className="column">
                 <div className="content">
-                  <p>
-                    {dog.name}'s energy level: {dog.energy}
-                  </p>
-                  <p>
-                    {dog.name}'s patience level: {dog.patience}
-                  </p>
-                  <p>
-                    {dog.name}'s dominance level: {dog.dominance}
-                  </p>
-                  <p>
-                    {dog.name}'s playfulness level: {dog.playfulness}
-                  </p>
+                  <p>Energy level: {dog.energy} out of 6</p>
+                  <p>Patience level: {dog.patience} out of 6</p>
+                  <p>Dominance level: {dog.dominance} out of 6</p>
+                  <p>Playfulness level: {dog.playfulness} out of 6</p>
                 </div>
               </div>
               <div className="column has-text-centered is-narrow">
                 <div className="content">
                   <p>Owner: {dog.ownerName}</p>
                 </div>
-                <figure className="image">
-                  <img src="https://via.placeholder.com/150" />
+                <figure className="image dogProfilePic">
+                  <img src="https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif" />
                 </figure>
               </div>
               <SendRequest

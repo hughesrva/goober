@@ -102,3 +102,24 @@ hr {
 .friendMessage {
   color: #0b2027;
 }
+
+.dogProfilePic {
+  height: 150px;
+  width: 150px;
+  padding: 10px;
+  margin: auto;
+}
+
+.profilePic {
+  height: 200px;
+  width: 200px;
+  margin: auto;
+}
+
+#chatInput {
+  width: 90%;
+}
+
+.loginBtn{
+  margin: 10px;
+}

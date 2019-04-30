@@ -27,6 +27,10 @@ const UserSchema = new Schema({
       type: String
     }
   ],
+  image: {
+    type: String,
+    default: "https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif"
+  },
   friends: [],
   friend_requests: [],
   join_date: {

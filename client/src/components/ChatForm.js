@@ -26,6 +26,7 @@ class ChatForm extends Component {
       message: []
     });
     this.props.update();
+    this.props.refresh();
   };
 
   render() {

@@ -92,16 +92,16 @@ class LoginModal extends Component {
                           </div>
                         </div>
                         <button
-                          className="button is-danger is-large"
-                          onClick={this.handleCancelClick}
-                        >
-                          Cancel
-                        </button>
-                        <button
-                          className="button confirmBtn is-large"
+                          className="button confirmBtn is-large loginBtn"
                           onClick={this.handleFormSubmit}
                         >
                           Log In
+                        </button>
+                        <button
+                          className="button is-danger is-large loginBtn"
+                          onClick={this.handleCancelClick}
+                        >
+                          Cancel
                         </button>
                       </div>
                       <div className="modal-card-foot" />

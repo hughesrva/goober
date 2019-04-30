@@ -52,7 +52,14 @@ class DogProfileInfo extends Component {
       >
         <div className="columns has-text-centered is-vcentered">
           <div className="column is-narrow is-vcentered">
-            <img className="image" src="https://via.placeholder.com/150" />
+            <img
+              className="image dogProfilePic"
+              src={
+                dog.image !== ""
+                  ? dog.image
+                  : "http://www.stickpng.com/assets/images/5845e608fb0b0755fa99d7e7.png"
+              }
+            />
 
             <button
               onClick={() => this.handleDeleteClick(dog._id)}

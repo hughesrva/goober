@@ -163,7 +163,10 @@ class FriendsList extends Component {
       >
         <div className="columns has-text-centered is-vcentered">
           <div className="column is-narrow">
-            <img className="image" src="https://via.placeholder.com/150" />
+            <img
+              className="image dogProfilePic"
+              src="https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif"
+            />
           </div>
           <div className="column is-vcentered">
             <div className="content">
@@ -172,8 +175,12 @@ class FriendsList extends Component {
             </div>
           </div>
           <div className="column is-vcentered">
-            <h3 className="subtitle">Dogs</h3>
-            <p>{item.dogs.join(", ")}</p>
+            <h3 className="subtitle">
+              <strong>Dogs</strong>
+            </h3>
+            <p>
+              <strong>{item.dogs.join(", ")}</strong>
+            </p>
           </div>
         </div>
       </div>
@@ -189,7 +196,10 @@ class FriendsList extends Component {
       >
         <div className="columns has-text-centered is-vcentered">
           <div className="column is-narrow">
-            <img className="image" src="https://via.placeholder.com/150" />
+            <img
+              className="image dogProfilePic"
+              src="https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif"
+            />
           </div>
           <div className="column is-vcentered">
             <div className="content">
@@ -206,9 +216,9 @@ class FriendsList extends Component {
     ));
 
     return (
-      <div className="container">
+      <div className="container has-text-centered">
         {this.state.friends.length === 0 ? (
-          <h3 className="subtitle">You haven't added any friends yet.</h3>
+          <h1 className="title">You haven't added any friends yet.</h1>
         ) : (
           <div>
             <div className="content">

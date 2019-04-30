@@ -50,8 +50,29 @@ class Chat extends Component {
     }
   };
 
-  componentDidMount = async () => {};
+  refresh = async () => {
+    var request = {
+      userOne: this.state.userOne,
+      userTwo: this.state.userTwo
+    };
 
+    const newMessages = [];
+    await Axios.post("/api/chat/new", request).then(res => {
+      console.log("New chat response ", res);
+      if (res.data.messages) {
+        for (let message of res.data.messages) {
+          var cleanMessage = {
+            message: message.message,
+            sender: message.sender
+          };
+          newMessages.push(cleanMessage);
+        }
+      }
+    });
+    await this.setState({
+      messages: newMessages
+    });
+  };
   render() {
     const messages = this.state.messages.map(message => (
       <div className="content">
@@ -80,8 +101,8 @@ class Chat extends Component {
                   Your chat with {this.props.friendName}
                 </h3>
               </div>
-              <div className="modal-card-body">{messages} </div>
-              <div className="modal-card-foot">
+              <div className="modal-card-body">
+                {messages}{" "}
                 <Context.Consumer>
                   {({ userID }) => (
                     <ChatForm
@@ -90,10 +111,12 @@ class Chat extends Component {
                       userName={this.props.userName}
                       friendName={this.props.friendName}
                       update={this.props.update}
+                      refresh={this.refresh}
                     />
                   )}
                 </Context.Consumer>
               </div>
+              <div className="modal-card-foot" />
             </div>
           </div>
         </div>

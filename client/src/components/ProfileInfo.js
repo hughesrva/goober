@@ -17,7 +17,8 @@ class ProfileInfo extends Component {
           firstName: res.data.first_name,
           lastName: res.data.last_name,
           email: res.data.email,
-          location: res.data.location
+          location: res.data.location,
+          image: res.data.image
         });
         var fullName = res.data.first_name + " " + res.data.last_name;
         this.props.setName(fullName);
@@ -50,14 +51,14 @@ class ProfileInfo extends Component {
     return (
       <React.Fragment>
         <div className="container has-text-centered" id="owner-container">
-          <div className="columns has-text-centered">
-            <div className="column has-text-centered is-one-quarter column-left">
-              <figure className="image">
+          <div className="columns has-text-centered is-vcentered">
+            <div className="column has-text-centered is-one-quarter column-left is-vcentered">
+              <figure className="image profilePic">
                 <img
                   src={
                     this.state.image !== ""
                       ? this.state.image
-                      : "https://via.placeholder.com/150"
+                      : "https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif"
                   }
                 />
               </figure>
