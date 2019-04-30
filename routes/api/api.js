@@ -34,7 +34,8 @@ router.post("/api/register", (req, res) => {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         location: req.body.location,
-        friend_requests: []
+        friend_requests: [],
+        image: req.body.image
       });
       // Hash password before saving in database
       bcrypt.genSalt(10, (err, salt) => {

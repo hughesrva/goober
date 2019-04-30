@@ -76,17 +76,14 @@ class Chat extends Component {
   render() {
     const messages = this.state.messages.map(message => (
       <div className="content">
-        <p>
-          <span
-            className={
-              message.sender === this.props.name
-                ? "userMessage"
-                : "friendMessage"
-            }
-          >
-            {message.sender}
-          </span>
-          : {message.message}
+        <p
+          className={
+            message.sender === this.props.userName
+              ? "userMessage"
+              : "friendMessage"
+          }
+        >
+          {message.message}
         </p>
       </div>
     ));
@@ -98,7 +95,7 @@ class Chat extends Component {
             <div className="modal-card">
               <div className="modal-card-head">
                 <h3 className="subtitle">
-                  Your chat with {this.props.friendName}
+                  Your chat with <strong>{this.props.friendName}</strong>
                 </h3>
               </div>
               <div className="modal-card-body">

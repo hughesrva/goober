@@ -9,7 +9,8 @@ class NewDogForm extends Component {
     energy: 0,
     patience: 0,
     dominance: 0,
-    playfulness: 0
+    playfulness: 0,
+    image: ""
   };
 
   handleInputChange = event => {
@@ -34,7 +35,8 @@ class NewDogForm extends Component {
       patience: this.state.patience,
       dominance: this.state.dominance,
       playfulness: this.state.playfulness,
-      ownerID: this.props.userID
+      ownerID: this.props.userID,
+      image: this.state.image
     })
       .then(res => {
         console.log("Response from new dog API: ", res);
@@ -47,7 +49,8 @@ class NewDogForm extends Component {
             energy: 0,
             patience: 0,
             dominance: 0,
-            playfulness: 0
+            playfulness: 0,
+            image: ""
           });
           this.props.loadDogs();
         }
@@ -190,6 +193,18 @@ class NewDogForm extends Component {
                         <option value="6">6 (Very playful)</option>
                       </select>
                     </div>
+                  </div>
+                </div>
+                <div className="field">
+                  <label className="label">Image URL</label>
+                  <div className="control">
+                    <input
+                      className="input"
+                      type="text"
+                      name="image"
+                      value={this.state.image}
+                      onChange={this.handleInputChange}
+                    />
                   </div>
                 </div>
                 <button

@@ -29,7 +29,8 @@ class SignUpModal extends Component {
       confirmedPassword: "",
       firstName: "",
       lastName: "",
-      location: ""
+      location: "",
+      image: ""
     });
     this.props.hide();
   };
@@ -42,7 +43,8 @@ class SignUpModal extends Component {
       password2: this.state.confirmedPassword,
       first_name: this.state.firstName,
       last_name: this.state.lastName,
-      location: this.state.location
+      location: this.state.location,
+      image: this.state.image
     })
       .then(res => {
         if (res.status === 200) {
@@ -166,6 +168,18 @@ class SignUpModal extends Component {
                             type="text"
                             name="location"
                             value={this.state.location}
+                            onChange={this.handleInputChange}
+                          />
+                        </div>
+                      </div>
+                      <div className="field">
+                        <label className="label">Image URL</label>
+                        <div className="control">
+                          <input
+                            className="input"
+                            type="text"
+                            name="image"
+                            value={this.state.image}
                             onChange={this.handleInputChange}
                           />
                         </div>

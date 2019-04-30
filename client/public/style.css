@@ -39,10 +39,11 @@ hr {
 }
 
 .navbar-item {
-  background-color: #a58697;
+  background-color: #a4bab7;
   border: solid 0.5px #0b2027;
   color: #0b2027;
   margin: 6px;
+  font-weight: bold;
 }
 
 #siteTitle {
@@ -96,11 +97,13 @@ hr {
 }
 
 .userMessage {
-  color: #a58697;
+  color: #0b2027;
+  text-align: left;
 }
 
 .friendMessage {
-  color: #0b2027;
+  color: #a58697;
+  text-align: right;
 }
 
 .dogProfilePic {
@@ -120,6 +123,6 @@ hr {
   width: 90%;
 }
 
-.loginBtn{
+.loginBtn {
   margin: 10px;
 }

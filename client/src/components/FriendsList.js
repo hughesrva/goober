@@ -208,8 +208,12 @@ class FriendsList extends Component {
             </div>
           </div>
           <div className="column is-vcentered">
-            <h3 className="subtitle">Dogs</h3>
-            <p>{item.dogs.join(", ")}</p>
+            <h3 className="subtitle">
+              <strong>Dogs</strong>
+            </h3>
+            <p>
+              <strong>{item.dogs.join(", ")}</strong>
+            </p>
           </div>
         </div>
       </div>
