@@ -51,9 +51,9 @@ class DogProfileInfo extends Component {
         key={dog._id}
       >
         <div className="columns has-text-centered is-vcentered">
-          <div className="column is-narrow is-vcentered">
+          <div className="column is-one-quarter is-vcentered">
             <img
-              className="image dogProfilePic"
+              className="image profilePic"
               src={
                 dog.image !== ""
                   ? dog.image

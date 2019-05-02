@@ -112,16 +112,19 @@ hr {
 }
 
 .dogProfilePic {
-  height: 150px;
-  width: 150px;
-  padding: 10px;
+  max-height: 200px;
+  max-width: 200px;
   margin: auto;
 }
 
 .profilePic {
-  height: 200px;
-  width: 200px;
+  max-height: 200px;
+  max-width: 200px;
   margin: auto;
+}
+
+img {
+  border: 1px solid #0b2027;
 }
 
 #chatInput {

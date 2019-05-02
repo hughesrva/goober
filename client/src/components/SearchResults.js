@@ -88,19 +88,18 @@ class SearchResults extends Component {
             this.showRequestModal(dog.ownerName, dog.ownerID);
           }}
         >
-          <div className="column is-narrow ">
+          <div className="column is-one-quarter ">
             <div className="content">
               <h3 className="subtitle">{dog.name}</h3>
             </div>
-            <figure className="image dogProfilePic">
-              <img
-                src={
-                  dog.image !== ""
-                    ? dog.image
-                    : "https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif"
-                }
-              />
-            </figure>
+            <img
+              className="image dogProfilePic"
+              src={
+                dog.image !== ""
+                  ? dog.image
+                  : "https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif"
+              }
+            />
           </div>
           {/* left column */}
           <div className="column is-vcentered">
@@ -119,19 +118,18 @@ class SearchResults extends Component {
               <p>Playfulness level: {dog.playfulness} out of 6</p>
             </div>
           </div>
-          <div className="column has-text-centered is-narrow">
+          <div className="column has-text-centered is-one-quarter">
             <div className="content">
               <p>Owner: {dog.ownerName}</p>
             </div>
-            <figure className="image dogProfilePic">
-              <img
-                src={
-                  dog.ownerImage !== ""
-                    ? dog.ownerImage
-                    : "https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif"
-                }
-              />
-            </figure>
+            <img
+              className="image profilePic"
+              src={
+                dog.ownerImage !== ""
+                  ? dog.ownerImage
+                  : "https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif"
+              }
+            />
           </div>
         </div>
 
