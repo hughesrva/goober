@@ -61,12 +61,14 @@ class FriendsList extends Component {
         name: "",
         location: "",
         dogs: [],
+        image: "",
         id: item.id
       };
       await Axios.get("/api/user/" + item.id)
         .then(res => {
           friend.name = res.data.first_name + " " + res.data.last_name;
           friend.location = res.data.location;
+          friend.image = res.data.image;
         })
         .catch(err => console.log(err));
       await Axios.get("/api/dog/" + item.id).then(res => {
@@ -88,12 +90,14 @@ class FriendsList extends Component {
         name: "",
         location: "",
         dogs: [],
-        id: item.id
+        id: item.id,
+        image: ""
       };
       await Axios.get("/api/user/" + item.id)
         .then(res => {
           friendRequest.name = res.data.first_name + " " + res.data.last_name;
           friendRequest.location = res.data.location;
+          friendRequest.image = res.data.image;
         })
         .catch(err => console.log(err));
       await Axios.get("/api/dog/" + item.id).then(res => {
@@ -198,7 +202,8 @@ class FriendsList extends Component {
             for (let message of res.data.messages) {
               var cleanMessage = {
                 message: message.message,
-                sender: message.sender
+                sender: message.sender,
+                id: message._id
               };
               newMessages.push(cleanMessage);
             }
@@ -224,7 +229,11 @@ class FriendsList extends Component {
           <div className="column is-narrow">
             <img
               className="image dogProfilePic"
-              src="https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif"
+              src={
+                item.image !== ""
+                  ? item.image
+                  : "https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif"
+              }
             />
           </div>
           <div className="column is-vcentered">
@@ -257,7 +266,11 @@ class FriendsList extends Component {
           <div className="column is-narrow">
             <img
               className="image dogProfilePic"
-              src="https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif"
+              src={
+                item.image !== ""
+                  ? item.image
+                  : "https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif"
+              }
             />
           </div>
           <div className="column is-vcentered">

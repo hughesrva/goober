@@ -17,22 +17,25 @@ class SearchResults extends Component {
     if (prevProps.results !== this.props.results) {
       console.log("this page breaks if this isn't here. don't mind me.");
       for (let localResult of this.props.results) {
-        console.log("test");
-        var dog = {
-          name: localResult.name,
-          gender: localResult.gender,
-          weight: localResult.weight,
-          energy: localResult.energy,
-          patience: localResult.patience,
-          dominance: localResult.dominance,
-          playfulness: localResult.playfulness,
-          ownerName: "",
-          ownerLocation: "",
-          siblings: false,
-          ownerID: localResult.ownerID
-        };
-        await this.loadOwners(dog);
-        this.updateArray(dog);
+        if (localResult.ownerID !== this.props.userID) {
+          var dog = {
+            name: localResult.name,
+            gender: localResult.gender,
+            weight: localResult.weight,
+            energy: localResult.energy,
+            patience: localResult.patience,
+            dominance: localResult.dominance,
+            playfulness: localResult.playfulness,
+            ownerName: "",
+            ownerLocation: "",
+            ownerImage: "",
+            siblings: false,
+            ownerID: localResult.ownerID,
+            image: localResult.image
+          };
+          await this.loadOwners(dog);
+          this.updateArray(dog);
+        }
       }
     }
   };
@@ -46,10 +49,12 @@ class SearchResults extends Component {
       Axios.get("/api/user/" + dog.ownerID).then(res => {
         dog.ownerName = res.data.first_name + " " + res.data.last_name;
         dog.ownerLocation = res.data.location;
+        dog.ownerImage = res.data.image;
         if (res.data.dogs.length > 1) {
           dog.siblings = true;
         }
       });
+      return dog;
     }
   };
 
@@ -68,7 +73,6 @@ class SearchResults extends Component {
     this.setState({
       requestModalShow: false
     });
-    console.log("clicked");
   };
 
   showRequestModal = (name, id) => {
@@ -78,56 +82,69 @@ class SearchResults extends Component {
   render() {
     const resultsList = this.state.dogs.map(dog => (
       <div>
+        <div
+          className="columns is-vcentered search-result-container"
+          key={dog._id}
+          onClick={() => {
+            this.showRequestModal(dog.ownerName, dog.ownerID);
+          }}
+        >
+          <div className="column is-narrow ">
+            <div className="content">
+              <h3 className="subtitle">{dog.name}</h3>
+            </div>
+            <figure className="image dogProfilePic">
+              <img
+                src={
+                  dog.image !== ""
+                    ? dog.image
+                    : "https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif"
+                }
+              />
+            </figure>
+          </div>
+          {/* left column */}
+          <div className="column is-vcentered">
+            <div className="content">
+              <p>{dog.gender}</p>
+              <p>{dog.weight} pounds</p>
+              <p>{dog.ownerLocation}</p>
+            </div>
+          </div>
+          {/* middle column */}
+          <div className="column">
+            <div className="content">
+              <p>Energy level: {dog.energy} out of 6</p>
+              <p>Patience level: {dog.patience} out of 6</p>
+              <p>Dominance level: {dog.dominance} out of 6</p>
+              <p>Playfulness level: {dog.playfulness} out of 6</p>
+            </div>
+          </div>
+          <div className="column has-text-centered is-narrow">
+            <div className="content">
+              <p>Owner: {dog.ownerName}</p>
+            </div>
+            <figure className="image dogProfilePic">
+              <img
+                src={
+                  dog.ownerImage !== ""
+                    ? dog.ownerImage
+                    : "https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif"
+                }
+              />
+            </figure>
+          </div>
+        </div>
+
         <Context.Consumer>
           {({ userID }) => (
-            <div
-              className="columns is-vcentered search-result-container"
-              key={dog._id}
-              onClick={() => {
-                this.showRequestModal(dog.ownerName, dog.ownerID);
-              }}
-            >
-              <div className="column is-narrow ">
-                <div className="content">
-                  <h3 className="subtitle">{dog.name}</h3>
-                </div>
-                <figure className="image dogProfilePic">
-                  <img src="http://www.stickpng.com/assets/images/5845e608fb0b0755fa99d7e7.png" />
-                </figure>
-              </div>
-              {/* left column */}
-              <div className="column is-vcentered">
-                <div className="content">
-                  <p>{dog.gender}</p>
-                  <p>{dog.weight} pounds</p>
-                  <p>{dog.ownerLocation}</p>
-                </div>
-              </div>
-              {/* middle column */}
-              <div className="column">
-                <div className="content">
-                  <p>Energy level: {dog.energy} out of 6</p>
-                  <p>Patience level: {dog.patience} out of 6</p>
-                  <p>Dominance level: {dog.dominance} out of 6</p>
-                  <p>Playfulness level: {dog.playfulness} out of 6</p>
-                </div>
-              </div>
-              <div className="column has-text-centered is-narrow">
-                <div className="content">
-                  <p>Owner: {dog.ownerName}</p>
-                </div>
-                <figure className="image dogProfilePic">
-                  <img src="https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif" />
-                </figure>
-              </div>
-              <SendRequest
-                hide={this.hideRequestModal}
-                show={this.state.requestModalShow}
-                friendID={this.state.friendID}
-                userID={userID}
-                name={this.state.friendName}
-              />
-            </div>
+            <SendRequest
+              hide={this.hideRequestModal}
+              show={this.state.requestModalShow}
+              friendID={this.state.friendID}
+              userID={userID}
+              name={this.state.friendName}
+            />
           )}
         </Context.Consumer>
       </div>

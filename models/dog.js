@@ -35,9 +35,7 @@ var dogSchema = new Schema({
     required: true
   },
   image: {
-    type: String,
-    default:
-      "http://www.stickpng.com/assets/images/5845e608fb0b0755fa99d7e7.png"
+    type: String
   }
 });
 

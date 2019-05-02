@@ -13,7 +13,8 @@ class SignUpModal extends Component {
     location: "",
     token: "",
     userID: "",
-    error: ""
+    error: "",
+    image: ""
   };
 
   handleInputChange = event => {
@@ -38,6 +39,13 @@ class SignUpModal extends Component {
   };
   handleSignUpSubmit = event => {
     event.preventDefault();
+    var image = "";
+    {
+      this.state.image !== ""
+        ? (image = this.state.image)
+        : (image =
+            "https://gladstoneentertainment.com/wp-content/uploads/2018/05/avatar-placeholder.gif");
+    }
 
     Axios.post("/api/register", {
       email: this.state.email,
@@ -46,7 +54,7 @@ class SignUpModal extends Component {
       first_name: this.state.firstName,
       last_name: this.state.lastName,
       location: this.state.location,
-      image: this.state.image
+      image: image
     })
       .then(res => {
         if (res.status === 200) {
@@ -66,7 +74,8 @@ class SignUpModal extends Component {
                 lastName: "",
                 location: "",
                 token: res.data.token,
-                userID: res.data.userID
+                userID: res.data.userID,
+                image: ""
               });
               this.props.setUserInfo(this.state.token, this.state.userID);
             } else if (res.data.success === false) {

@@ -133,7 +133,8 @@ router.put("/api/user/update/:userid", function(req, res) {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         email: req.body.email,
-        location: req.body.location
+        location: req.body.location,
+        image: req.body.image
       }
     }
   )
@@ -199,7 +200,8 @@ router.post("/api/dog", function(req, res) {
     patience: req.body.patience,
     dominance: req.body.dominance,
     playfulness: req.body.playfulness,
-    ownerID: req.body.ownerID
+    ownerID: req.body.ownerID,
+    image: req.body.image
   });
 
   addDogToOwner = (owner, dog) => {
@@ -253,7 +255,6 @@ router.delete("/api/dog/:dogid", function(req, res) {
 
 // start a new chat
 router.post("/api/chat/new", function(req, res) {
-  
   Chat.findOne(
     {
       $and: [
@@ -274,7 +275,7 @@ router.post("/api/chat/new", function(req, res) {
           userOne: req.body.userOne,
           userTwo: req.body.userTwo,
           messages: {
-            message: "Start the conversation!",
+            message: "   ",
             sender: "sys"
           }
         });

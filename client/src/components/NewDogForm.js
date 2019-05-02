@@ -27,6 +27,13 @@ class NewDogForm extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
+    var image = "";
+    {
+      this.state.image !== ""
+        ? (image = this.state.image)
+        : (image =
+            "http://www.stickpng.com/assets/images/5845e608fb0b0755fa99d7e7.png");
+    }
     Axios.post("api/dog", {
       name: this.state.name,
       gender: this.state.gender,
@@ -36,7 +43,7 @@ class NewDogForm extends Component {
       dominance: this.state.dominance,
       playfulness: this.state.playfulness,
       ownerID: this.props.userID,
-      image: this.state.image
+      image: image
     })
       .then(res => {
         console.log("Response from new dog API: ", res);

@@ -7,7 +7,8 @@ class ProfileInfo extends Component {
     lastName: "",
     email: "",
     location: "",
-    image: ""
+    image: "",
+    newImage: ""
   };
 
   componentDidMount = () => {
@@ -33,18 +34,23 @@ class ProfileInfo extends Component {
     });
   };
 
-  handleUpdateClick = event => {
+  handleUpdateClick = async event => {
     event.preventDefault();
     let updatedUser = {
       first_name: this.state.firstName,
       last_name: this.state.lastName,
       email: this.state.email,
-      location: this.state.location
+      location: this.state.location,
+      image: this.state.newImage
     };
 
-    Axios.put("api/user/update/" + this.props.userID, updatedUser)
+    await Axios.put("api/user/update/" + this.props.userID, updatedUser)
       .then(res => console.log(res))
       .catch(err => console.log(err));
+    this.setState({
+      newImage: ""
+    });
+    this.forceUpdate();
   };
 
   render() {
@@ -102,6 +108,16 @@ class ProfileInfo extends Component {
                     type="text"
                     name="location"
                     value={this.state.location}
+                    onChange={this.handleInputChange}
+                  />
+                </div>
+                <div className="field">
+                  <label className="label">New Image URL</label>
+                  <input
+                    className="input"
+                    type="text"
+                    name="newImage"
+                    value={this.state.newImage}
                     onChange={this.handleInputChange}
                   />
                 </div>

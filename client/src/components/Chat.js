@@ -13,45 +13,6 @@ class Chat extends Component {
     };
   }
 
-  // componentDidUpdate = async prevProps => {
-  //   if (this.props !== prevProps) {
-  //     if (this.state.userOne === "" || this.state.userTwo === "") {
-  //       await this.setState({
-  //         userOne: this.props.userID,
-  //         userTwo: this.props.friendID
-  //       });
-  //       console.log("Friend: " + this.props.friendID);
-  //       var request = {
-  //         userOne: this.state.userOne,
-  //         userTwo: this.state.userTwo
-  //       };
-
-  //       if (request.userOne !== "" && request.userTwo !== "") {
-  //         const newMessages = [];
-
-  //         await Axios.post("/api/chat/new", request).then(res => {
-  //           console.log("New chat response ", res);
-  //           if (res.data) {
-  //             if (res.data.messages) {
-  //               for (let message of res.data.messages) {
-  //                 var cleanMessage = {
-  //                   message: message.message,
-  //                   sender: message.sender
-  //                 };
-  //                 newMessages.push(cleanMessage);
-  //               }
-  //             }
-  //           }
-  //         });
-  //         await this.setState({
-  //           messages: newMessages
-  //         });
-  //         this.props.update();
-  //       }
-  //     }
-  //   }
-  // };
-
   handleClose = e => {
     this.setState({
       messages: []
@@ -61,7 +22,7 @@ class Chat extends Component {
 
   render() {
     const messages = this.props.messages.map(message => (
-      <div className="content">
+      <div className="content" key={message.id}>
         <p
           className={
             message.sender === "sys"

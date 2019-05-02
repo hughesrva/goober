@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Axios from "axios";
 import SearchFormModal from "../components/SearchFormModal";
 import SearchResults from "../components/SearchResults";
+import { Context } from "../App";
 
 class SearchForm extends Component {
   constructor(props) {
@@ -65,7 +66,11 @@ class SearchForm extends Component {
             >
               Search
             </button>
-            <SearchResults results={this.state.results} />
+            <Context.Consumer>
+              {({ userID }) => (
+                <SearchResults results={this.state.results} userID={userID} />
+              )}
+            </Context.Consumer>
           </div>
 
           <SearchFormModal
@@ -85,7 +90,11 @@ class SearchForm extends Component {
             >
               Search
             </button>
-            <SearchResults results={this.state.results} />
+            <Context.Consumer>
+              {({ userID }) => (
+                <SearchResults results={this.state.results} userID={userID} />
+              )}
+            </Context.Consumer>
           </div>
 
           <SearchFormModal
