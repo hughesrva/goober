@@ -106,6 +106,11 @@ hr {
   text-align: right;
 }
 
+.sysMessage {
+  color: #dddddd;
+  text-align: center;
+}
+
 .dogProfilePic {
   height: 150px;
   width: 150px;

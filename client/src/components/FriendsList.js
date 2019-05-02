@@ -11,7 +11,8 @@ class FriendsList extends Component {
     requestModalShow: false,
     chatModalShow: false,
     friendName: "",
-    friendID: ""
+    friendID: "",
+    messages: []
   };
 
   componentDidMount = () => {
@@ -136,7 +137,8 @@ class FriendsList extends Component {
   hideChatModal = e => {
     e.stopPropagation();
     this.setState({
-      chatModalShow: false
+      chatModalShow: false,
+      messages: []
     });
     console.log("clicked");
   };
@@ -148,8 +150,65 @@ class FriendsList extends Component {
     this.setState({ requestModalShow: true, friendName: name, friendID: id });
   };
 
-  showChatModal = (name, id) => {
-    this.setState({ chatModalShow: true, friendName: name, friendID: id });
+  showChatModal = async (name, id) => {
+    await this.setState({
+      chatModalShow: true,
+      friendName: name,
+      friendID: id,
+      messages: []
+    });
+    if (this.state.friendID !== "") {
+      const newMessages = [];
+      await Axios.post("/api/chat/new", {
+        userOne: this.props.userID,
+        userTwo: this.state.friendID
+      }).then(res => {
+        console.log("Chat Response: ", res);
+        if (res.data) {
+          if (res.data.messages) {
+            for (let message of res.data.messages) {
+              var cleanMessage = {
+                message: message.message,
+                sender: message.sender
+              };
+              newMessages.push(cleanMessage);
+            }
+          }
+        }
+      });
+      await this.setState({
+        messages: newMessages
+      });
+    }
+  };
+
+  pullMessages = async (name, id) => {
+    this.setState({
+      messages: []
+    });
+    if (this.state.friendID !== "") {
+      const newMessages = [];
+      await Axios.post("/api/chat/new", {
+        userOne: this.props.userID,
+        userTwo: this.state.friendID
+      }).then(res => {
+        console.log("Chat Response: ", res);
+        if (res.data) {
+          if (res.data.messages) {
+            for (let message of res.data.messages) {
+              var cleanMessage = {
+                message: message.message,
+                sender: message.sender
+              };
+              newMessages.push(cleanMessage);
+            }
+          }
+        }
+      });
+      await this.setState({
+        messages: newMessages
+      });
+    }
   };
 
   render() {
@@ -263,7 +322,8 @@ class FriendsList extends Component {
               friendID={this.state.friendID}
               friendName={this.state.friendName}
               hide={this.hideChatModal}
-              update={this.updateParent}
+              messages={this.state.messages}
+              pull={this.pullMessages}
             />
           )}
         </Context.Consumer>

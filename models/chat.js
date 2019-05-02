@@ -10,18 +10,20 @@ var chatSchema = new Schema({
     type: String,
     required: true
   },
-  messages: {
-    message: {
-      type: String
-    },
-    sender: {
-      type: String
-    },
-    timestamp: {
-      type: Date,
-      default: Date.now
+  messages: [
+    {
+      message: {
+        type: String
+      },
+      sender: {
+        type: String
+      },
+      timestamp: {
+        type: Date,
+        default: Date.now
+      }
     }
-  }
+  ]
 });
 
 const Chat = mongoose.model("chat", chatSchema);

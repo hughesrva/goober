@@ -13,7 +13,7 @@ class ChatForm extends Component {
     });
   };
 
-  sendMessage = () => {
+  sendMessage = async () => {
     var request = {
       userOne: this.props.userID,
       userTwo: this.props.friendID,
@@ -21,12 +21,11 @@ class ChatForm extends Component {
       message: this.state.message
     };
     console.log("Message request: ", request);
-    Axios.post("/api/chat/send", request).then(res => console.log(res));
+    await Axios.post("/api/chat/send", request).then(res => console.log(res));
     this.setState({
       message: []
     });
-    this.props.update();
-    this.props.refresh();
+    this.props.pull();
   };
 
   render() {

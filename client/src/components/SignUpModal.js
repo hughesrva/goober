@@ -12,7 +12,8 @@ class SignUpModal extends Component {
     lastName: "",
     location: "",
     token: "",
-    userID: ""
+    userID: "",
+    error: ""
   };
 
   handleInputChange = event => {
@@ -30,11 +31,12 @@ class SignUpModal extends Component {
       firstName: "",
       lastName: "",
       location: "",
-      image: ""
+      image: "",
+      error: ""
     });
     this.props.hide();
   };
-  handleFormSubmit = event => {
+  handleSignUpSubmit = event => {
     event.preventDefault();
 
     Axios.post("/api/register", {
@@ -67,6 +69,10 @@ class SignUpModal extends Component {
                 userID: res.data.userID
               });
               this.props.setUserInfo(this.state.token, this.state.userID);
+            } else if (res.data.success === false) {
+              this.setState({
+                error: "The information you entered is not valid."
+              });
             }
           });
         }
@@ -109,7 +115,9 @@ class SignUpModal extends Component {
                       </div>
                       {/* password field */}
                       <div className="field">
-                        <label className="label">Password</label>
+                        <label className="label">
+                          Password (At least 6 characters)
+                        </label>
                         <div className="control">
                           <input
                             className="input"
@@ -184,14 +192,15 @@ class SignUpModal extends Component {
                           />
                         </div>
                       </div>
+                      <p className="is-danger">{this.state.error}</p>
                       <button
                         className="button confirmBtn is-large loginBtn"
-                        onClick={this.handleFormSubmit}
+                        onClick={this.handleSignUpSubmit}
                       >
                         Submit
                       </button>
                       <button
-                        className="button is-danger is-large loginBt"
+                        className="button is-danger is-large loginBtn"
                         onClick={this.handleCancelClick}
                       >
                         Cancel

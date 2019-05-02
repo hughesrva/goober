@@ -20,8 +20,8 @@ router.post("/api/register", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
   // // Check validation
   if (!isValid) {
-    console.log("didn't validate");
-    return res.status(400).json(errors);
+    console.log(errors);
+    return res.send(errors);
   }
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
@@ -253,6 +253,7 @@ router.delete("/api/dog/:dogid", function(req, res) {
 
 // start a new chat
 router.post("/api/chat/new", function(req, res) {
+  
   Chat.findOne(
     {
       $and: [
@@ -271,7 +272,11 @@ router.post("/api/chat/new", function(req, res) {
       if (!result) {
         const newChat = new Chat({
           userOne: req.body.userOne,
-          userTwo: req.body.userTwo
+          userTwo: req.body.userTwo,
+          messages: {
+            message: "Start the conversation!",
+            sender: "sys"
+          }
         });
         newChat.save();
       }
