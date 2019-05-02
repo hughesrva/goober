@@ -33,20 +33,19 @@ class SearchResults extends Component {
             ownerID: localResult.ownerID,
             image: localResult.image
           };
-          await this.loadOwners(dog);
-          this.updateArray(dog);
+          this.loadOwners(dog);
         }
       }
     }
   };
 
-  loadOwners = dog => {
+  loadOwners = async dog => {
     this.setState({
       loading: true,
       noAction: false
     });
     if (dog.ownerID !== "") {
-      Axios.get("/api/user/" + dog.ownerID).then(res => {
+      await Axios.get("/api/user/" + dog.ownerID).then(res => {
         dog.ownerName = res.data.first_name + " " + res.data.last_name;
         dog.ownerLocation = res.data.location;
         dog.ownerImage = res.data.image;
@@ -54,7 +53,7 @@ class SearchResults extends Component {
           dog.siblings = true;
         }
       });
-      return dog;
+      this.updateArray(dog);
     }
   };
 
