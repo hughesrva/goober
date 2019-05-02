@@ -50,6 +50,13 @@ class Chat extends Component {
     }
   };
 
+  handleClose = (e) => {
+    this.setState({
+      messages: []
+    });
+    this.props.hide(e);
+  };
+
   refresh = async () => {
     var request = {
       userOne: this.state.userOne,
@@ -90,7 +97,7 @@ class Chat extends Component {
     return (
       <div>
         <div className={this.props.show ? "modal is-active" : "modal"}>
-          <div className="modal-background" onClick={this.props.hide} />
+          <div className="modal-background" onClick={this.handleClose} />
           <div className="modal-content">
             <div className="modal-card">
               <div className="modal-card-head">

@@ -26,7 +26,10 @@ router.post("/api/register", (req, res) => {
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
       console.log("error when searching");
-      return res.status(400).json({ email: "Email already exists" });
+      return res.send({
+        success: false,
+        message: "Email address already in use."
+      });
     } else {
       const newUser = new User({
         email: req.body.email,
@@ -58,7 +61,7 @@ router.post("/api/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
   // Check validation
   if (!isValid) {
-    return res.status(400).json(errors);
+    return res.send({ success: false, message: "Invalid email format." });
   } else {
     const email = req.body.email;
     const password = req.body.password;
@@ -66,7 +69,10 @@ router.post("/api/login", (req, res) => {
     User.findOne({ email }).then(user => {
       // Check if user exists
       if (!user) {
-        return res.status(404).json({ emailnotfound: "Email not found" });
+        return res.send({
+          success: false,
+          message: "Email address not found."
+        });
       }
       // Check password
       bcrypt.compare(password, user.password).then(isMatch => {
@@ -93,9 +99,7 @@ router.post("/api/login", (req, res) => {
             }
           );
         } else {
-          return res
-            .status(400)
-            .json({ passwordincorrect: "Password incorrect" });
+          return res.send({ success: false, message: "Incorrect password." });
         }
       });
     });

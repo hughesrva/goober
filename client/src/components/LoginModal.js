@@ -7,7 +7,8 @@ class LoginModal extends Component {
   state = {
     email: "",
     password: "",
-    userID: ""
+    userID: "",
+    error: ""
   };
 
   handleInputChange = event => {
@@ -43,6 +44,11 @@ class LoginModal extends Component {
             userID: res.data.userID
           });
           this.props.setUserInfo(this.state.token, this.state.userID);
+        } else if (res.data.success === false) {
+          console.log(res.data);
+          this.setState({
+            error: res.data.message
+          });
         }
       })
       .catch(err => console.log(err));
@@ -91,6 +97,7 @@ class LoginModal extends Component {
                             />
                           </div>
                         </div>
+                        <p className="has-text-danger">{this.state.error}</p>
                         <button
                           className="button confirmBtn is-large loginBtn"
                           onClick={this.handleFormSubmit}

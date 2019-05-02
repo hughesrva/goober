@@ -185,16 +185,16 @@ class SignUpModal extends Component {
                         </div>
                       </div>
                       <button
-                        className="button is-danger is-large"
-                        onClick={this.handleCancelClick}
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        className="button confirmBtn is-large"
+                        className="button confirmBtn is-large loginBtn"
                         onClick={this.handleFormSubmit}
                       >
                         Submit
+                      </button>
+                      <button
+                        className="button is-danger is-large loginBt"
+                        onClick={this.handleCancelClick}
+                      >
+                        Cancel
                       </button>
                     </div>
                     <div className="modal-card-foot" />
